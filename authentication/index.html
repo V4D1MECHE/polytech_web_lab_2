@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Форма аутентификации</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.0.2/sha.js"></script>
+    <script>
+        function mySubmit(obj) {
+        var pwdObj = document.getElementById('password');
+        var hashObj = new jsSHA("SHA-512", "TEXT", {numRounds: 1});
+        hashObj.update(pwdObj.value);
+        var hash = hashObj.getHash("HEX");
+        pwdObj.value = hash;
+        }
+    </script>
 </head>
 <body>
     <div class="background-image">
@@ -23,7 +33,7 @@
                     <input type="checkbox" name="remember" id="remember" value="remember">
                     <label for="remember">Запомнить меня</label>
                 </div>
-                <button class="login_button" type="submit">Войти</button>
+                <button class="login_button" onclick="mySubmit(this)" type="submit">Войти</button>
             </form>
         </div>
     </div>
